@@ -1,0 +1,6 @@
+/bin
+/src/MonkeyPoker/MonkeyPoker/obj
+/src/MonkeyPoker/MonkeyPoker/*.user
+/src/RandomGorillaAI/RandomGorillaAI/obj
+/src/MonkeyPoker/*.suo
+/src/RandomGorillaAI/*.suo
