@@ -60,10 +60,17 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="XPokerEval.PokerSource.KeithRule">
+      <HintPath>..\..\Libraries\XPokerEval.PokerSource.KeithRule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIManager.cs" />
+    <Compile Include="Poker Game Classes\Card.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="IAI.cs" />
+    <Compile Include="Poker Game Classes\Deck.cs" />
+    <Compile Include="Poker Game Classes\Hand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
