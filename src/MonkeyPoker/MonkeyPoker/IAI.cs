@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonkeyPoker
+namespace MonkeyPoker 
 {
     // Generic Interface for all AIs
     public interface IAI
