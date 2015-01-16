@@ -42,7 +42,7 @@ namespace MonkeyPoker
         public enum Suit
         {
             [Description("d")]
-            Diamonds,
+            Diamonds = 1    ,
             [Description("h")]
             Hearts,
             [Description("c")]
@@ -54,7 +54,7 @@ namespace MonkeyPoker
         public Rank CardRank { get; private set; }
         public Suit CardSuit { get; private set; }
 
-        Card(Rank rank, Suit suit)
+        public Card(Rank rank, Suit suit)
         {
             CardRank = rank;
             CardSuit = suit;
