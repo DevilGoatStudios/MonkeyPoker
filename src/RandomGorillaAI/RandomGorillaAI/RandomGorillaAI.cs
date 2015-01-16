@@ -8,14 +8,24 @@ namespace RandomGorillaAI
 {
     public class RandomGorillaAI : MonkeyPoker.IAI
     {
+        //public event EventHandler ActionHappened;
+
         public string Name
         {
             get { return "RandomGorillaAI"; }
         }
 
-        public string GetDescription()
+        public RandomGorillaAI()
         {
-            return "Have you ever wanted more randomness in your life? This gorilla is just what you needed all allong! Disclaimer : We cannot guarantee its capacity to play Poker";
+        }
+
+        public void ReceiveStartingHand(List<MonkeyPoker.Card> cards)
+        {
+        }
+
+        public MonkeyPoker.IAction TakeAction()
+        {
+            return null;
         }
     }
 }

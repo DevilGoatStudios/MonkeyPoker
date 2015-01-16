@@ -10,6 +10,15 @@ namespace MonkeyPoker
     public interface IAI
     {
         string Name { get; }
-        string GetDescription();
+
+        // @param two cards (vector or whatnot)
+        void ReceiveStartingHand(List<Card> cards);
+
+        // @return action executé par l'AI
+        IAction TakeAction();
+
+        // This event is triggered when any type of action happen
+        // Eg. The dealer flip a card or another player bet some money
+        //event EventHandler ActionHappened;
     }
 }

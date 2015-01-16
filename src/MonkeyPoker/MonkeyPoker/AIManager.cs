@@ -47,7 +47,6 @@ namespace MonkeyPoker
                 if (null != ai)
                 {
                     Console.WriteLine("Name : " + ai.Name);
-                    Console.WriteLine(ai.GetDescription());
                     Console.WriteLine("");
                 }
             }
