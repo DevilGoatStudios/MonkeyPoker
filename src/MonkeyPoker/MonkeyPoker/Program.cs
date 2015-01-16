@@ -10,6 +10,8 @@ namespace MonkeyPoker
     {
         static void Main(string[] args)
         {
+            // oli suck
+
             AIManager manager = new AIManager();
             manager.LoadAIDlls();
             manager.PrintAINamesAndDescriptions();
