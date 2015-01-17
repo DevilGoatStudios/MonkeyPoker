@@ -10,17 +10,19 @@ namespace MonkeyPoker
     {
         static void Main(string[] args)
         {
-            // oli suck
-
             AIManager manager = new AIManager();
             manager.LoadAIDlls();
             manager.PrintAINamesAndDescriptions();
+
+            Deck test = new Deck();
+            Card card = test.DrawCard();
 
             Console.WriteLine("==================");
             Console.WriteLine("Playing Poker");
             Console.WriteLine("==================");
             Console.WriteLine("nahhh its not implemented yet :(");
             Console.WriteLine("");
+            Console.WriteLine(card.ToString());
         }
     }
 }

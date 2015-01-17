@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,17 @@ namespace MonkeyPoker
             Spades
         }
 
+        private string GetDescription(Enum value)
+        {
+            FieldInfo field = value.GetType().GetField(value.ToString());
+
+            DescriptionAttribute attribute
+                    = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute))
+                        as DescriptionAttribute;
+
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+
         public Rank CardRank { get; private set; }
         public Suit CardSuit { get; private set; }
 
@@ -62,7 +74,9 @@ namespace MonkeyPoker
 
         public override string ToString()
         {
-            return CardRank.ToString() + CardSuit.ToString();
+            return GetDescription(CardRank) + GetDescription(CardSuit);
         }
+
+        
     }
 }

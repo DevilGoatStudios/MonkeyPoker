@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="AIManager.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="Deck.cs" />
     <Compile Include="IAction.cs" />
     <Compile Include="Poker Game Classes\Card.cs" />
     <Compile Include="GameManager.cs" />
