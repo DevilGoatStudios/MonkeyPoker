@@ -17,12 +17,16 @@ namespace MonkeyPoker
             Deck test = new Deck();
             Card card = test.DrawCard();
 
-            Console.WriteLine("==================");
-            Console.WriteLine("Playing Poker");
-            Console.WriteLine("==================");
-            Console.WriteLine("nahhh its not implemented yet :(");
-            Console.WriteLine("");
-            Console.WriteLine(card.ToString());
+            string pocket = test.DrawCard().ToString() + " " + test.DrawCard().ToString();
+            string board = test.DrawCard().ToString() + " " + test.DrawCard().ToString() + " " + test.DrawCard().ToString() + " " + test.DrawCard().ToString() + " " + test.DrawCard().ToString();
+
+            Console.WriteLine("pocket : " + pocket);
+            Console.WriteLine("board : " + board);
+
+            HoldemHand.Hand hand = new HoldemHand.Hand(pocket, board);
+            uint handVal = hand.HandValue;
+            Console.WriteLine("hand.handVal : " + handVal);
+            Console.WriteLine("hand.Description : " + hand.Description);
         }
     }
 }
