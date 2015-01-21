@@ -30,7 +30,7 @@ namespace MonkeyPoker
             Eight,
             [Description("9")]
             Nine,
-            [Description("0")]
+            [Description("T")]
             Ten,
             [Description("J")]
             Jack,

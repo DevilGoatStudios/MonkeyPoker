@@ -69,11 +69,8 @@
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="IAction.cs" />
-    <Compile Include="Poker Game Classes\Card.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="IAI.cs" />
-    <Compile Include="Poker Game Classes\Deck.cs" />
-    <Compile Include="Poker Game Classes\Hand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
