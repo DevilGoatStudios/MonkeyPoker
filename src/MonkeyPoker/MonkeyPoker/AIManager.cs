@@ -11,23 +11,24 @@ namespace MonkeyPoker
 {
     public class AIManager : IActionHandler
     {
-        public List<IAI> ArtificialPlayers { get; private set; }
+        public Dictionary<int, IAI> ArtificialPlayers { get; private set; }
 
+        private int mNextArtificialPlayerId;
         // This event is triggered when any type of action happen
         // Eg. The dealer flip a card or another player bet some money
         public event MonkeyPoker.Action.ActionHandler ActionHappened;
 
-        private Dictionary<string, AppDomain> DLLList = new Dictionary<string, AppDomain>();
-
         public AIManager()
         {
-            ArtificialPlayers = new List<IAI>();
+            ArtificialPlayers = new Dictionary<int, IAI>();
+            mNextArtificialPlayerId = 0;
         }
 
         public void LoadAIDlls()
         {
             // Cleaning old list
             ArtificialPlayers.Clear();
+            mNextArtificialPlayerId = 0;
 
             Console.WriteLine("==================");
             Console.WriteLine("Loading AI Dlls");
@@ -38,10 +39,8 @@ namespace MonkeyPoker
                 try
                 {
                     IAI ai = LoadAssembly(item);
-
-                    ai.AddHandler(this);
-
-                    ArtificialPlayers.Add(ai);
+                    ArtificialPlayers.Add(mNextArtificialPlayerId, ai);
+                    ++mNextArtificialPlayerId;
                     Console.WriteLine(item + " Loaded");
                 }
                 catch (Exception e)
@@ -58,7 +57,7 @@ namespace MonkeyPoker
             Console.WriteLine("==================");
             Console.WriteLine("Printing AIs");
             Console.WriteLine("==================");
-            foreach (IAI ai in ArtificialPlayers)
+            foreach (IAI ai in ArtificialPlayers.Values)
             {
                 if (null != ai)
                 {

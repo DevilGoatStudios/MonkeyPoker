@@ -11,12 +11,14 @@ namespace MonkeyPoker
         private Deck       mDeck;
         private AIManager  mAiManager;
         private List<Card> mBoard;
+        private Dictionary<int, List<Card>> mPlayersHand;
 
         public GameManager()
         {
             mAiManager = new AIManager();
             mDeck      = new Deck();
             mBoard     = new List<Card>();
+            mPlayersHand = new Dictionary<int, List<Card>>();
 
             mAiManager.LoadAIDlls();
             mAiManager.PrintAINamesAndDescriptions();
@@ -26,30 +28,31 @@ namespace MonkeyPoker
         {
             DealCardsToPlayers();
 
-            // Take bets
+            TakeBets();
 
             PlayFlop();
 
-            // Take bets
+            TakeBets();
 
             PlayTurn();
 
-            // Take bets
+            TakeBets();
 
             PlayFlop();
 
-            // Take bets
+            TakeBets();
         }
 
         private void DealCardsToPlayers()
         {
-            foreach (IAI artificialPlayer in mAiManager.ArtificialPlayers)
+            foreach (KeyValuePair<int, IAI> artificialPlayer in mAiManager.ArtificialPlayers)
             {
-                Card card1 = mDeck.DrawCard();
-                Card card2 = mDeck.DrawCard();
+                mPlayersHand.Add(artificialPlayer.Key, new List<Card>());
+                mPlayersHand[artificialPlayer.Key].Add(mDeck.DrawCard());
+                mPlayersHand[artificialPlayer.Key].Add(mDeck.DrawCard());
 
-                // @todo
-                // Send event/action to the AI so it knows its cards
+                // Send cards to player
+                artificialPlayer.Value.ReceiveStartingHand(mPlayersHand[artificialPlayer.Key]);
             }
         }
 
@@ -80,6 +83,34 @@ namespace MonkeyPoker
 
             // @todo
             // Send event/action to AIs so they know the river
+        }
+
+        private void TakeBets()
+        {
+            IAI lastPlayerWhoRaised = null;
+            Queue<IAI> PlayersStillPresent = new Queue<IAI>();
+
+            foreach (IAI player in mAiManager.ArtificialPlayers.Values)
+            {
+                PlayersStillPresent.Enqueue(player);
+            }
+
+            // Each player take turn until the betting round end
+            while (PlayersStillPresent.Count > 1 && lastPlayerWhoRaised != PlayersStillPresent.Peek())
+            {
+                IAI currentPlayer = PlayersStillPresent.Dequeue();
+                Action currentAction = currentPlayer.TakeAction();
+
+                if (currentAction is Actions.Raise)
+                {
+                    PlayersStillPresent.Enqueue(currentPlayer);
+                    lastPlayerWhoRaised = currentPlayer;
+                }
+                else if (currentAction is Actions.Check)
+                {
+                    PlayersStillPresent.Enqueue(currentPlayer);
+                }
+            }
         }
     }
 }
