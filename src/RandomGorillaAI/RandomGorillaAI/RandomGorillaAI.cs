@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyPoker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RandomGorillaAI
 {
-    public class RandomGorillaAI : MonkeyPoker.IAI
+    public class RandomGorillaAI : IAI
     {
         //public event EventHandler ActionHappened;
 
@@ -15,15 +16,23 @@ namespace RandomGorillaAI
             get { return "RandomGorillaAI"; }
         }
 
+        public event MonkeyPoker.Action.ActionHandler ActionHappened;
+
         public RandomGorillaAI()
         {
+            ActionHappened += new MonkeyPoker.Action.ActionHandler(ReceiveAction);
         }
 
-        public void ReceiveStartingHand(List<MonkeyPoker.Card> cards)
+        public void ReceiveStartingHand(List<Card> cards)
         {
         }
 
-        public MonkeyPoker.IAction TakeAction()
+        private void ReceiveAction(MonkeyPoker.Action action)
+        {
+            Console.Out.WriteLine("Action Received!");
+        }
+
+        public MonkeyPoker.Action TakeAction()
         {
             return null;
         }

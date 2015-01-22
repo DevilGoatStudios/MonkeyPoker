@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyPoker.Actions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace MonkeyPoker
         public Dictionary<int, IAI> ArtificialPlayers { get; private set; }
 
         private int mNextArtificialPlayerId;
+        // This event is triggered when any type of action happen
+        // Eg. The dealer flip a card or another player bet some money
+        event MonkeyPoker.Action.ActionHandler ActionHappened;
 
         public AIManager()
         {
@@ -39,7 +43,7 @@ namespace MonkeyPoker
                     ++mNextArtificialPlayerId;
                     Console.WriteLine(item + " Loaded");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     Console.WriteLine("Failed to load " + item);
                 }

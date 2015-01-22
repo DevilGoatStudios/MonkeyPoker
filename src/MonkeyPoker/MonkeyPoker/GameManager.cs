@@ -96,11 +96,20 @@ namespace MonkeyPoker
             }
 
             // Each player take turn until the betting round end
-            while (PlayersStillPresent.Count > 1)
+            while (PlayersStillPresent.Count > 1 && lastPlayerWhoRaised != PlayersStillPresent.Peek())
             {
-                Action action = PlayersStillPresent.Peek().TakeAction();
+                IAI currentPlayer = PlayersStillPresent.Dequeue();
+                Action currentAction = currentPlayer.TakeAction();
 
-                if (
+                if (currentAction is Actions.Raise)
+                {
+                    PlayersStillPresent.Enqueue(currentPlayer);
+                    lastPlayerWhoRaised = currentPlayer;
+                }
+                else if (currentAction is Actions.Check)
+                {
+                    PlayersStillPresent.Enqueue(currentPlayer);
+                }
             }
         }
     }
