@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyPoker.Actions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace MonkeyPoker
             AIManager manager = new AIManager();
             manager.LoadAIDlls();
             manager.PrintAINamesAndDescriptions();
+
+            Raise raise = new Raise(3) { Value = 3 };
 
             Deck test = new Deck();
             Card card = test.DrawCard();

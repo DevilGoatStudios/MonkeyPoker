@@ -13,7 +13,7 @@ namespace MonkeyPoker
         public enum Rank
         {
             [Description("A")]
-            Ace = 1,
+            Ace,
             [Description("2")]
             Two,
             [Description("3")]
@@ -43,7 +43,7 @@ namespace MonkeyPoker
         public enum Suit
         {
             [Description("d")]
-            Diamonds = 1    ,
+            Diamonds,
             [Description("h")]
             Hearts,
             [Description("c")]

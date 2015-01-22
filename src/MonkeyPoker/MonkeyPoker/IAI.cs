@@ -15,7 +15,7 @@ namespace MonkeyPoker
         void ReceiveStartingHand(List<Card> cards);
 
         // @return action executé par l'AI
-        IAction TakeAction();
+        Action TakeAction();
 
         // This event is triggered when any type of action happen
         // Eg. The dealer flip a card or another player bet some money
