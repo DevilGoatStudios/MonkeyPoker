@@ -16,5 +16,8 @@ namespace MonkeyPoker
 
         // @return action executé par l'AI
         Action TakeAction();
+
+        // @return add the handler
+        void AddHandler(IActionHandler manager);
     }
 }

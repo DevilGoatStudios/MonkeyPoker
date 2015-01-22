@@ -75,6 +75,7 @@
     <Compile Include="Deck.cs" />
     <Compile Include="Actions\Action.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="IActionHandler.cs" />
     <Compile Include="IAI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

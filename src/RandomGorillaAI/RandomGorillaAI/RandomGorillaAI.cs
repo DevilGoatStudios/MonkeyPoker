@@ -16,11 +16,15 @@ namespace RandomGorillaAI
             get { return "RandomGorillaAI"; }
         }
 
-        public event MonkeyPoker.Action.ActionHandler ActionHappened;
-
         public RandomGorillaAI()
         {
-            ActionHappened += new MonkeyPoker.Action.ActionHandler(ReceiveAction);
+            Console.Out.WriteLine("Action Constructor!");
+            
+        }
+
+        public void AddHandler(IActionHandler manager)
+        {
+            manager.ActionHappened += new MonkeyPoker.Action.ActionHandler(ReceiveAction);
         }
 
         public void ReceiveStartingHand(List<Card> cards)

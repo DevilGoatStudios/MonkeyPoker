@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace MonkeyPoker
 {
-    class AIManager
+    public class AIManager : IActionHandler
     {
         public List<IAI> ArtificialPlayers { get; private set; }
 
         // This event is triggered when any type of action happen
         // Eg. The dealer flip a card or another player bet some money
-        event MonkeyPoker.Action.ActionHandler ActionHappened;
+        public event MonkeyPoker.Action.ActionHandler ActionHappened;
 
         private Dictionary<string, AppDomain> DLLList = new Dictionary<string, AppDomain>();
 
@@ -39,16 +39,14 @@ namespace MonkeyPoker
                 {
                     IAI ai = LoadAssembly(item);
 
-                    //TEST
-                    Fold fold = new Fold(3);
-                    Console.Out.WriteLine("Sending action");
-                    ActionHappened(fold);
+                    ai.AddHandler(this);
 
                     ArtificialPlayers.Add(ai);
                     Console.WriteLine(item + " Loaded");
                 }
                 catch (Exception e)
                 {
+                    Console.Out.WriteLine(e.Message);
                     Console.WriteLine("Failed to load " + item);
                 }
             }
