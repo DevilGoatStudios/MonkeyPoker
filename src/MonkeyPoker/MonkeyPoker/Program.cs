@@ -11,12 +11,11 @@ namespace MonkeyPoker
     {
         static void Main(string[] args)
         {
-            AIManager manager = new AIManager();
-            manager.LoadAIDlls();
-            manager.PrintAINamesAndDescriptions();
+            GameManager manager = new GameManager();
 
-            Raise raise = new Raise(3) { Value = 3 };
+            manager.PlayGame();
 
+            /*
             Deck test = new Deck();
             Card card = test.DrawCard();
 
@@ -29,7 +28,7 @@ namespace MonkeyPoker
             HoldemHand.Hand hand = new HoldemHand.Hand(pocket, board);
             uint handVal = hand.HandValue;
             Console.WriteLine("hand.handVal : " + handVal);
-            Console.WriteLine("hand.Description : " + hand.Description);
+            Console.WriteLine("hand.Description : " + hand.Description);*/
         }
     }
 }

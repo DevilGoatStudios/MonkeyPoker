@@ -10,13 +10,20 @@ namespace MonkeyPoker
 {
     class AIManager
     {
+        public List<IAI> ArtificialPlayers { get; private set; }
+
+        private Dictionary<string, AppDomain> DLLList = new Dictionary<string, AppDomain>();
+
         public AIManager()
         {
-            AIs = new List<IAI>();
+            ArtificialPlayers = new List<IAI>();
         }
 
         public void LoadAIDlls()
         {
+            // Cleaning old list
+            ArtificialPlayers.Clear();
+
             Console.WriteLine("==================");
             Console.WriteLine("Loading AI Dlls");
             Console.WriteLine("==================");
@@ -26,7 +33,7 @@ namespace MonkeyPoker
                 try
                 {
                     IAI ai = LoadAssembly(item);
-                    AIs.Add(ai);
+                    ArtificialPlayers.Add(ai);
                     Console.WriteLine(item + " Loaded");
                 }
                 catch (Exception)
@@ -42,7 +49,7 @@ namespace MonkeyPoker
             Console.WriteLine("==================");
             Console.WriteLine("Printing AIs");
             Console.WriteLine("==================");
-            foreach (IAI ai in AIs)
+            foreach (IAI ai in ArtificialPlayers)
             {
                 if (null != ai)
                 {
@@ -51,9 +58,6 @@ namespace MonkeyPoker
                 }
             }
         }
-
-        private List<IAI> AIs;
-        private Dictionary<string, AppDomain> DLLList = new Dictionary<string, AppDomain>();
 
         private IAI LoadAssembly(string assemblyPath)
         {
@@ -72,4 +76,3 @@ namespace MonkeyPoker
         }
     }
 }
-
