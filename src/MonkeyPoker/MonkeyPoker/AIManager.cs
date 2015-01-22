@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyPoker.Actions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,10 @@ namespace MonkeyPoker
     class AIManager
     {
         public List<IAI> ArtificialPlayers { get; private set; }
+
+        // This event is triggered when any type of action happen
+        // Eg. The dealer flip a card or another player bet some money
+        event MonkeyPoker.Action.ActionHandler ActionHappened;
 
         private Dictionary<string, AppDomain> DLLList = new Dictionary<string, AppDomain>();
 
@@ -33,10 +38,16 @@ namespace MonkeyPoker
                 try
                 {
                     IAI ai = LoadAssembly(item);
+
+                    //TEST
+                    Fold fold = new Fold(3);
+                    Console.Out.WriteLine("Sending action");
+                    ActionHappened(fold);
+
                     ArtificialPlayers.Add(ai);
                     Console.WriteLine(item + " Loaded");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     Console.WriteLine("Failed to load " + item);
                 }

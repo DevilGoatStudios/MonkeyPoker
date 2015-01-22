@@ -16,9 +16,5 @@ namespace MonkeyPoker
 
         // @return action executé par l'AI
         Action TakeAction();
-
-        // This event is triggered when any type of action happen
-        // Eg. The dealer flip a card or another player bet some money
-        //event EventHandler ActionHappened;
     }
 }
