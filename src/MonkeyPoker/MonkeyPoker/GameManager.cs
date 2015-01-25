@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MonkeyPoker.Actions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace MonkeyPoker
 {
-    public class GameManager
+    public class GameManager : IActionHandler
     {
+        // This event is triggered when any type of action happen
+        // Eg. The dealer flip a card or another player bet some money
+        public event MonkeyPoker.Action.ActionHandler ActionHappened;
+
         private Deck       mDeck;
         private AIManager  mAiManager;
         private List<Card> mBoard;
@@ -20,7 +25,7 @@ namespace MonkeyPoker
             mBoard     = new List<Card>();
             mPlayersHand = new Dictionary<int, List<Card>>();
 
-            mAiManager.LoadAIDlls();
+            mAiManager.LoadAIDlls(this);
             mAiManager.PrintAINamesAndDescriptions();
         }
 
@@ -38,7 +43,7 @@ namespace MonkeyPoker
 
             TakeBets();
 
-            PlayFlop();
+            PlayRiver();
 
             TakeBets();
         }
@@ -60,29 +65,25 @@ namespace MonkeyPoker
         private void PlayFlop()
         {
             mBoard.Add(mDeck.DrawCard());
+            ActionHappened(new NewCardOnTable() {NewCard = mBoard.Last() });
             mBoard.Add(mDeck.DrawCard());
+            ActionHappened(new NewCardOnTable() { NewCard = mBoard.Last() });
             mBoard.Add(mDeck.DrawCard());
-
-            // @todo
-            // Send event/action to AIs so they know the flop
+            ActionHappened(new NewCardOnTable() { NewCard = mBoard.Last() });
         }
 
         //The fourth community card
         private void PlayTurn()
         {
             mBoard.Add(mDeck.DrawCard());
-
-            // @todo
-            // Send event/action to AIs so they know the turn
+            ActionHappened(new NewCardOnTable() { NewCard = mBoard.Last() });
         }
 
         // The fifth and final community card
         private void PlayRiver()
         {
             mBoard.Add(mDeck.DrawCard());
-
-            // @todo
-            // Send event/action to AIs so they know the river
+            ActionHappened(new NewCardOnTable() { NewCard = mBoard.Last() });
         }
 
         private void TakeBets()

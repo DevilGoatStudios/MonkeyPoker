@@ -8,12 +8,12 @@ namespace MonkeyPoker.Actions
 {
     public class NewCardOnTable : Action
     {
-        public List<Card> NewCard { get; set; }
+        public Card NewCard { get; set; }
 
-        public NewCardOnTable(int playerId)
+        public NewCardOnTable()
             : base()
         { 
-            PlayerId = playerId; 
+            PlayerId = -1; 
         }
     }
 }

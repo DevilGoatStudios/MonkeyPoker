@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace MonkeyPoker
 {
-    public class AIManager : IActionHandler
+    public class AIManager
     {
         public Dictionary<int, IAI> ArtificialPlayers { get; private set; }
 
         private int mNextArtificialPlayerId;
-        // This event is triggered when any type of action happen
-        // Eg. The dealer flip a card or another player bet some money
-        public event MonkeyPoker.Action.ActionHandler ActionHappened;
 
         public AIManager()
         {
@@ -24,7 +21,7 @@ namespace MonkeyPoker
             mNextArtificialPlayerId = 0;
         }
 
-        public void LoadAIDlls()
+        public void LoadAIDlls(IActionHandler actionHandler)
         {
             // Cleaning old list
             ArtificialPlayers.Clear();
@@ -40,6 +37,7 @@ namespace MonkeyPoker
                 {
                     IAI ai = LoadAssembly(item);
                     ArtificialPlayers.Add(mNextArtificialPlayerId, ai);
+                    ai.AddHandler(actionHandler);
                     ++mNextArtificialPlayerId;
                     Console.WriteLine(item + " Loaded");
                 }
