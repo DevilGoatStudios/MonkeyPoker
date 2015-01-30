@@ -17,6 +17,14 @@ namespace MonkeyPoker
         private AIManager  mAiManager;
         private List<Card> mBoard;
         private Dictionary<int, List<Card>> mPlayersHand;
+        private List<Player> mPlayers;
+        private int mDelearPosition;
+        private int mSmallBlindPosition;
+        private int mBigBlindPosition;
+//        private int mCurrentPlayerPosition;
+        private int mSmallBlindValue;
+        private int mBigBlindValue;
+//        private int mPot;
 
         public GameManager()
         {
@@ -24,6 +32,14 @@ namespace MonkeyPoker
             mDeck      = new Deck();
             mBoard     = new List<Card>();
             mPlayersHand = new Dictionary<int, List<Card>>();
+            mPlayers = new List<Player>();
+            mDelearPosition = 0;
+            mSmallBlindPosition = 0;
+            mBigBlindPosition = 0;
+//            mCurrentPlayerPosition = 0;
+            mSmallBlindValue = 0;
+            mBigBlindValue = 0;
+//            mPot = 0;
 
             mAiManager.LoadAIDlls(this);
             mAiManager.PrintAINamesAndDescriptions();
@@ -112,6 +128,33 @@ namespace MonkeyPoker
                     PlayersStillPresent.Enqueue(currentPlayer);
                 }
             }
+        }
+
+        private void BetsPreFlop()
+        {
+            mDelearPosition = 0;
+            mSmallBlindPosition = mDelearPosition + 1;
+            mBigBlindPosition = mSmallBlindPosition + 1;
+
+            // TODO: Send stack to AI
+            foreach(Player player in mPlayers)
+            {
+                player.Stack = 1000;
+            }
+
+            mSmallBlindValue = 20;
+            mBigBlindValue = 40;
+
+            mPlayers[mSmallBlindPosition].Stack -= mSmallBlindValue;
+            mPlayers[mBigBlindPosition].Stack -= mBigBlindValue;
+
+            int currentPlayer = mBigBlindPosition + 1;
+            int lastPlayer = currentPlayer;
+            while(true /* check with the buffer */)
+            {
+                mPlayers[0].Ai.TakeAction();
+            }
+
         }
     }
 }
